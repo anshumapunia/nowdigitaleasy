@@ -12,7 +12,7 @@ app.use("/user",userRoute)
 
 
 
-app.listen(4000, async()=>{
+app.listen(8000, async()=>{
     try
     {
         await connection
@@ -23,5 +23,5 @@ app.listen(4000, async()=>{
         console.log(error)
     }
 
-    console.log("Server is running at 4000");
+    console.log("Server is running at 8000");
 })
