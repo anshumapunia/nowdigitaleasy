@@ -22,12 +22,6 @@ mongoose.connection.on('error', (err) => {
 
 // Use the userRoutes
 
-app.get("/api",(req,res)=>{
-    res.status(201).json({
-        status:true,
-        msg:"welcome to homepage"
-    })
-})
 app.use('/api', userRoutes);
 
 // Server Setup
