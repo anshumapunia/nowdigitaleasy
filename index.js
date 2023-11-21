@@ -1,27 +1,30 @@
-const express= require("express")
-const {connection} = require ("./db")
-const {userRoute} = require("./routes/user.routes");
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 
+const app = express();
+app.use(bodyParser.json());
 
-const app = express()
+// MongoDB Connection
+mongoose.connect('mongodb+srv://anshumapunia0:anshumapunia0@cluster0.1af6tyi.mongodb.net/nowdigitaleasy?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.use(express.json())
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
 
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
 
-app.use("/user",userRoute)
+// Use the userRoutes
+app.use('/api', userRoutes);
 
-
-
-app.listen(8000, async()=>{
-    try
-    {
-        await connection
-        console.log("db is connected")
-    }
-    catch
-    {
-        console.log(error)
-    }
-
-    console.log("Server is running at 8000");
-})
+// Server Setup
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
